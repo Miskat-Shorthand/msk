@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dictionary — Miskat Shorthand</title>
+<meta name="description" content="Look up words and their shorthand forms.">
+<link rel="stylesheet" href="assets/style.css?v=1.4.7">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <div class="topbar-spacer"></div>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="id">ID</button>
+      <button class="lang-btn" data-lang="ms">MS</button>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" width="18" height="18"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <a href="index.html" data-i18n="nav.title">Miskat Shorthand</a>
+      <span data-i18n="nav.subtitle">Reference &amp; learning site</span>
+    </div>
+    <div class="sidebar-section">
+      <p class="sidebar-title" data-i18n="nav.sidebar">Sidebar</p>
+      <ul class="sidebar-list">
+        <li><a href="index.html" data-i18n="nav.homepage">Home</a></li>
+        <li><a href="dict.html" data-i18n="nav.dict">Dictionary</a></li>
+        <li><a href="stroke-chart.html" data-i18n="nav.stroke">Stroke Chart</a></li>
+        <li><a href="l&p.html" data-i18n="nav.l&p">Learn & Practice</a></li>
+        <li><a href="articles.html" data-i18n="nav.articles">Articles</a></li>
+        <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      </ul>
+      <br>
+      <p class="sidebar-title" data-i18n="nav.its">In this site</p>
+      <ul class="sidebar-list">
+        <li><a href="articles.html" data-i18n="nav.documentation">Documentation</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="content">
+    <div class="page-header">
+      <span class="page-header-icon page-header-icon--a">
+        <svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h6v16H6a2 2 0 00-2 2V5z"/><path d="M20 5a2 2 0 00-2-2h-6v16h6a2 2 0 012 2V5z"/></svg>
+      </span>
+      <div>
+        <h1 class="page-title" data-i18n="dict.title">Dictionary</h1>
+        <p class="page-lead" data-i18n="dict.lead">Search for a word, browse by topic, or filter by stroke.</p>
+      </div>
+    </div>
+    
+    <div class="callout" data-i18n="dict.callout">
+      The dictionary is still growing — check back soon for more words.
+    </div>
+
+    <div class="lookup-box">
+      <div class="lookup-toggle-row">
+        <span class="lookup-simple-label" id="lookupSimpleLabel" data-i18n="dict.search.label">Word or Notes</span>
+        <span class="lookup-simple-label" id="lookupAdvancedLabel" data-i18n="dict.search.advanced.heading" hidden>Filters</span>
+        <label class="advanced-toggle">
+          <input type="checkbox" id="dictAdvancedToggle">
+          <span data-i18n="dict.search.advanced">Specific search</span>
+        </label>
+      </div>
+
+      <div class="lookup-row" id="simpleSearchRow">
+        <input type="text" id="dictSearchSimple" class="search-input" data-i18n-placeholder="dict.search.placeholder" placeholder="e.g. 'yang', 'akan', 'ber-'">
+      </div>
+
+      <div class="advanced-search" id="advancedSearchRow" hidden>
+        <label class="advanced-toggle show-categories-toggle">
+          <input type="checkbox" id="dictShowCategoriesToggle">
+          <span data-i18n="dict.filter.showcategories">Show all categories</span>
+        </label>
+        <div class="field-inline">
+          <label class="field-label" for="dictSearchWord" data-i18n="dict.search.word.label">Word</label>
+          <input type="text" id="dictSearchWord" class="search-input" data-i18n-placeholder="dict.search.word.placeholder" placeholder="e.g. 'hai'">
+        </div>
+        <div class="field-pair">
+          <div class="field-inline field-inline-compact">
+            <label class="field-label" for="dictSearchBrief" data-i18n="dict.search.brief.label">Brief</label>
+            <input type="text" id="dictSearchBrief" class="search-input" data-i18n-placeholder="dict.search.brief.placeholder" placeholder="'hi'">
+          </div>
+          <div class="field-inline field-inline-compact">
+            <label class="field-label" for="dictSearchKeyboard" data-i18n="dict.search.keyboard.label">Keys</label>
+            <input type="text" id="dictSearchKeyboard" class="search-input" data-i18n-placeholder="dict.search.keyboard.placeholder" placeholder="'HI'">
+          </div>
+        </div>
+        <div class="field-inline">
+          <label class="field-label" for="dictSearchTopic" data-i18n="dict.search.topic.label">Topic</label>
+          <input type="text" id="dictSearchTopic" class="search-input" data-i18n-placeholder="dict.search.topic.placeholder" placeholder="e.g. 'greetings'">
+        </div>
+        <div class="field-inline">
+          <label class="field-label" for="dictSearchNotes" data-i18n="dict.search.notes.label">Notes</label>
+          <input type="text" id="dictSearchNotes" class="search-input" data-i18n-placeholder="dict.search.notes.placeholder" placeholder="e.g. '...'">
+        </div>
+        <label class="advanced-toggle show-categories-toggle">
+          <input type="checkbox" id="dictShowForeignToggle">
+          <span data-i18n="dict.filter.showforeign">Show foreign language</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="lookup-box quiz-box">
+      <div class="lookup-toggle-row">
+        <span class="lookup-simple-label" data-i18n="dict.quiz.hint">Hide the columns you want to guess before checking the answer.</span>
+        <label class="advanced-toggle">
+          <input type="checkbox" id="dictQuizToggle">
+          <span data-i18n="dict.quiz.toggle">Practice mode</span>
+        </label>
+      </div>
+      <div class="quiz-panel" id="dictQuizPanel" hidden>
+        <div class="quiz-display-choice">
+          <label class="advanced-toggle">
+            <input type="radio" name="dictQuizDisplay" value="blur" checked>
+            <span data-i18n="dict.quiz.mode.blur">Blur (click to reveal)</span>
+          </label>
+          <label class="advanced-toggle">
+            <input type="radio" name="dictQuizDisplay" value="hide">
+            <span data-i18n="dict.quiz.mode.hide">Hide column</span>
+          </label>
+        </div>
+        <div class="quiz-col-choice">
+          <label class="advanced-toggle"><input type="checkbox" id="dictQuizCol_word"><span data-i18n="dict.th.word">Word</span></label>
+          <label class="advanced-toggle"><input type="checkbox" id="dictQuizCol_stroke"><span data-i18n="dict.th.stroke">Stroke</span></label>
+          <label class="advanced-toggle"><input type="checkbox" id="dictQuizCol_brief"><span data-i18n="dict.th.briefform">Brief-form</span></label>
+          <label class="advanced-toggle"><input type="checkbox" id="dictQuizCol_keyboard"><span data-i18n="dict.th.keyboard">Keyboard</span></label>
+        </div>
+        <p class="quiz-panel-hint" data-i18n="dict.quiz.topichidden">Topic and Notes are always hidden in practice mode.</p>
+        <button type="button" class="topic-chip" id="dictQuizRevealAll" data-i18n="dict.quiz.revealAll">Reveal all</button>
+      </div>
+    </div>
+
+    <div class="filter-group" id="topicFilterGroup" hidden>
+      <span class="filter-group-label" data-i18n="dict.filter.words.label">Words shown</span>
+      <div class="topic-chips" id="topicChips"></div>
+    </div>
+    <p class="dict-status" id="dictStatus">…</p>
+    <div class="shuffle-row">
+      <label class="advanced-toggle">
+        <input type="checkbox" id="dictShuffleToggle">
+        <button type="button" class="icon-chip" id="dictShuffleReroll" data-i18n-title="dict.shuffle.reroll" title="Reshuffle" aria-label="Reshuffle" hidden>
+          <svg class="icon" viewBox="0 0 24 24" width="15" height="15"><path d="M21 12a9 9 0 11-2.7-6.4M21 3.5V9h-5.5"/></svg>
+        </button>
+        <span data-i18n="dict.shuffle.toggle">Shuffle entries on this page</span>
+      </label>
+    </div>
+    <div class="topic-chips" id="langFilterChips"></div>
+
+    <div class="quiz-gate" id="dictQuizGate" hidden>
+      <p class="quiz-panel-hint" data-i18n="dict.quiz.gate.hint">Finish setting up your practice options above, then show the table.</p>
+      <button type="button" class="topic-chip topic-chip--accent" id="dictQuizShowTable" data-i18n="dict.quiz.showtable">Show table</button>
+    </div>
+
+    <div class="cards-wrap">
+      <div class="cards" id="dictBody"></div>
+    </div>
+
+    <nav class="pagination" id="dictPagination" aria-label="Pagination"></nav>
+  </main>
+</div>
+
+<footer class="site-footer" data-i18n="footer.text">Miskat Shorthand — Indonesian & Malay Steno.</footer>
+
+<footer class="site-footer-ls" data-i18n="footer.ls">Free for personal, educational, and non-commercial use. For commercial purposes, a licensing agreement is required — contact us.</footer>
+
+<script src="assets/js/site.js?v=1.638"></script>
+<script src="assets/js/i18n.js?v=1.637"></script>
+<script src="assets/js/dict.js?v=1.638"></script>
+</body>
+</html>

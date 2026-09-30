@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 320 320" width="320" height="320"
+  role="img" aria-labelledby="ms-intro-title ms-intro-desc">
+  <title id="ms-intro-title">Miskat Shorthand notebook</title>
+  <desc id="ms-intro-desc">A cream ruled note card with a pink shorthand stroke and a dark pen, matching the Miskat Shorthand website visual language.</desc>
+
+  <defs>
+    <linearGradient id="ms-intro-ink" x1="0.08" y1="0.9" x2="0.92" y2="0.08">
+      <stop offset="0" stop-color="#f08aa7"/>
+      <stop offset="0.55" stop-color="#e86a9a"/>
+      <stop offset="1" stop-color="#f28aa9"/>
+    </linearGradient>
+    <linearGradient id="ms-intro-paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#fff8ec"/>
+    </linearGradient>
+    <filter id="ms-intro-shadow" x="-25%" y="-25%" width="150%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#2b2630" flood-opacity=".13"/>
+    </filter>
+  </defs>
+
+  <!-- Small translucent echo of the site's purple/pink hero gradient. -->
+  <ellipse cx="223" cy="171" rx="63" ry="78"
+           fill="#b25bd4" opacity=".035"/>
+
+  <!-- Notebook -->
+  <g transform="rotate(-4.5 160 160)" filter="url(#ms-intro-shadow)">
+    <rect x="57" y="46" width="205" height="225" rx="17"
+          fill="url(#ms-intro-paper)"/>
+    <rect x="57.75" y="46.75" width="203.5" height="223.5" rx="16.25"
+          fill="none" stroke="#e8decc" stroke-width="1.5"/>
+
+    <!-- restrained paper rules -->
+    <g stroke="#e9e1d3" stroke-width="1.7" stroke-linecap="round">
+      <line x1="83" y1="91" x2="237" y2="91"/>
+      <line x1="83" y1="119" x2="237" y2="119"/>
+      <line x1="83" y1="147" x2="237" y2="147"/>
+      <line x1="83" y1="175" x2="237" y2="175"/>
+      <line x1="83" y1="203" x2="237" y2="203"/>
+      <line x1="83" y1="231" x2="237" y2="231"/>
+    </g>
+
+    <!-- light notebook margin -->
+    <line x1="82.5" y1="68" x2="82.5" y2="249"
+          stroke="#efadc0" stroke-width="1.7" opacity=".48"/>
+  </g>
+
+  <!-- Shorthand stroke: deliberately simple, smooth, and close to the screenshot -->
+  <path d="M89 230
+           C105 209 117 181 132 171
+           C146 162 158 170 173 176
+           C189 182 204 186 213 170
+           C221 156 214 139 218 123
+           C221 110 227 100 238 91"
+        fill="none"
+        stroke="url(#ms-intro-ink)"
+        stroke-width="8.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Pencil/pen aligned with the stroke tip -->
+  <g transform="translate(240 82) rotate(42)">
+    <rect x="-6.5" y="-39" width="13" height="41" rx="6.5"
+          fill="#2f343d"/>
+    <rect x="-6.5" y="-39" width="13" height="11" rx="6"
+          fill="#252a31"/>
+    <path d="M-6.5 2 L0 15 L6.5 2 Z" fill="#d6a04d"/>
+    <path d="M-1.7 10.8 L0 15 L1.7 10.8 Z" fill="#f0ce80"/>
+  </g>
+</svg>

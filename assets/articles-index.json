@@ -1,0 +1,25 @@
+[
+  {
+    "slug": "style-showcase",
+    "folder": "2026-09-02-style-showcase",
+    "date": "2026-09-02",
+    "tags": [
+      "meta",
+      "style-guide"
+    ],
+    "thumbnail": "articles/2026-09-02-style-showcase/thumb.svg",
+    "author": "K000",
+    "langs": {
+      "en": {
+        "title": "Article Style Showcase: Every Element, One Page",
+        "excerpt": "A living reference for every HTML element the article template supports — headings, lists, quotes, code, and a centered figure — all in one place.",
+        "readMins": 2
+      },
+      "id": {
+        "title": "Contoh Gaya Artikel: Semua Elemen dalam Satu Halaman",
+        "excerpt": "Referensi hidup untuk semua elemen HTML yang didukung template artikel — heading, list, kutipan, kode, dan figure yang sudah center — dalam satu halaman.",
+        "readMins": 2
+      }
+    }
+  }
+]

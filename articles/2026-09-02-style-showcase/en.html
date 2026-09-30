@@ -1,0 +1,48 @@
+<!--meta
+{"title": "Article Style Showcase: Every Element, One Page", "excerpt": "A living reference for every HTML element the article template supports — headings, lists, quotes, code, and a centered figure — all in one place."}
+-->
+<p>This article isn't really about anything — it exists so that every <strong>element</strong> the article template supports shows up somewhere on one page. If you're writing a new article and wondering "does this look right?", check here first before publishing.</p>
+
+<p>Basic inline formatting: <strong>bold text</strong>, <em>italic text</em>, and <code>inline code</code> all sit directly inside a paragraph like this one, no special markup needed beyond the tag itself.</p>
+
+<h2>A level-2 heading</h2>
+<p>Use <code>&lt;h2&gt;</code> for the main sections of an article — this is the size Japanese Grammar uses for "The particle is the grammar," for example.</p>
+
+<h3>A level-3 heading</h3>
+<p>Use <code>&lt;h3&gt;</code> for a sub-point inside a section — smaller than <code>&lt;h2&gt;</code>, still bold, less top margin.</p>
+
+<h2>Lists</h2>
+<p>An unordered list:</p>
+<ul>
+  <li>First point, no particular order</li>
+  <li>Second point</li>
+  <li>Third point, with <code>inline code</code> inside a list item</li>
+</ul>
+<p>An ordered list:</p>
+<ol>
+  <li>Do this first</li>
+  <li>Then this</li>
+  <li>Finally, this</li>
+</ol>
+
+<h2>Blockquote</h2>
+<blockquote>A blockquote is for quoting someone or something external — it gets a left border and muted color, not italics, so it doesn't get confused with <code>&lt;em&gt;</code>.</blockquote>
+
+<h2>A figure with a caption</h2>
+<p>This is the one that needed fixing: the image below is narrower than the article column on purpose, to prove it now centers along with its caption instead of hugging the left edge.</p>
+<figure>
+  <img src="figure-demo.svg" alt="A small centered square graphic used to demonstrate figure alignment">
+  <figcaption>Fig. 1 — image and caption now share the same center line, at any image width.</figcaption>
+</figure>
+
+<h2>A code block</h2>
+<p>For multi-line code or preformatted text, use <code>&lt;pre&gt;&lt;code&gt;</code>:</p>
+<pre><code>function greet(name) {
+  return "Hello, " + name + "!";
+}</code></pre>
+
+<h2>A plain inline image</h2>
+<p>Not every image needs a caption — a bare <code>&lt;img&gt;</code> with no <code>&lt;figure&gt;</code> wrapper is also supported, and stays left-aligned at its natural block position rather than centered:</p>
+<img src="figure-demo.svg" alt="The same small square graphic, this time without a figure wrapper">
+
+<p>That covers every element this template currently styles. If you add something new to an article body and it looks unstyled or oddly positioned, it probably just needs a rule added to the <code>.article-body</code> section of <code>assets/style.css</code> — this page is the place to test it.</p>

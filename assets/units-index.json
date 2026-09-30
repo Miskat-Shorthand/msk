@@ -1,0 +1,84 @@
+[
+  {
+    "id": "edisi-1",
+    "order": 1,
+    "thumbnail": "assets/img/units/edisi-1.svg",
+    "langs": {
+      "en": { "title": "Edition 1", "summary": "The original edition, unit by unit." },
+      "id": { "title": "Edisi 1", "summary": "Edisi pertama, unit demi unit." }
+    },
+    "children": [
+      {
+        "id": "1",
+        "order": 1,
+        "langs": {
+          "en": { "title": "Unit 1 — Getting Started", "summary": "The four core elements and how they combine." },
+          "id": { "title": "Unit 1 — Memulai", "summary": "Empat elemen inti dan cara menggabungkannya." }
+        }
+      },
+      {
+        "id": "2",
+        "order": 2,
+        "langs": {
+          "en": { "title": "Unit 2 — Basic Consonants", "summary": "Writing the most common consonant strokes." },
+          "id": { "title": "Unit 2 — Konsonan Dasar", "summary": "Menulis goresan konsonan yang paling umum." }
+        },
+        "children": [
+          {
+            "id": "a",
+            "order": 1,
+            "langs": {
+              "en": { "title": "2a — Warm-up drills", "summary": "Short repetition drills before the main lesson." },
+              "id": { "title": "2a — Pemanasan", "summary": "Latihan pengulangan singkat sebelum materi utama." }
+            }
+          },
+          {
+            "id": "b",
+            "order": 2,
+            "langs": {
+              "en": { "title": "2b — Practice sentences", "summary": "Full sentences combining unit 1 and 2." },
+              "id": { "title": "2b — Kalimat Latihan", "summary": "Kalimat lengkap yang menggabungkan unit 1 dan 2." }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "edisi-cekat",
+    "order": 2,
+    "thumbnail": "assets/img/units/edisi-cekat.svg",
+    "langs": {
+      "en": { "title": "Edisi Cekat", "summary": "A faster-paced track for quick learners." },
+      "id": { "title": "Edisi Cekat", "summary": "Jalur belajar yang lebih cepat untuk yang ingin ngebut." }
+    },
+    "children": [
+      {
+        "id": "1",
+        "order": 1,
+        "langs": {
+          "en": { "title": "Unit 1 — Crash Course", "summary": "Units 1-2 from Edition 1, compressed." },
+          "id": { "title": "Unit 1 — Kilat", "summary": "Unit 1-2 dari Edisi 1, dipadatkan." }
+        }
+      }
+    ]
+  },
+  {
+    "id": "edisi-revisi",
+    "order": 3,
+    "langs": {
+      "en": { "title": "Edisi Revisi", "summary": "Revised notes and corrections to Edition 1." },
+      "id": { "title": "Edisi Revisi", "summary": "Catatan revisi dan koreksi untuk Edisi 1." }
+    },
+    "children": [
+      {
+        "id": "1",
+        "order": 1,
+        "langs": {
+          "en": { "title": "Unit 1 — Revised", "summary": "Updated version of Unit 1." },
+          "id": { "title": "Unit 1 — Revisi", "summary": "Versi terbaru dari Unit 1." }
+        }
+      }
+    ]
+  }
+]

@@ -1,1 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://pagead2.googlesyndication.com https://partner.googleadservices.com https://tpc.googlesyndication.com https://www.googletagservices.com https://googleads.g.doubleclick.net https://adservice.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.googlesyndication.com https://www.google.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://adservice.google.com https://*.g.doubleclick.net; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homepage - Miskat Shorthand</title>
+<meta name="description" content="A stenography system for Indonesian & Malay — guide, stroke chart, and dictionary.">
+<link rel="stylesheet" href="assets/style.css?v=1.4.7">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2825498315021318"
+     crossorigin="anonymous"></script>
+</head>
+<body>
 
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span></button>
+    <div class="topbar-spacer"></div>
+    <div class="lang-switch">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="id">ID</button>
+      <button class="lang-btn" data-lang="ms">MS</button>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" width="18" height="18"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <a href="index.html" data-i18n="nav.title">Miskat Shorthand</a>
+      <span data-i18n="nav.subtitle">Reference &amp; learning site</span>
+    </div>
+    <div class="sidebar-section">
+      <p class="sidebar-title" data-i18n="nav.sidebar">Sidebar</p>
+      <ul class="sidebar-list">
+        <li><a href="index.html" data-i18n="nav.homepage">Home</a></li>
+        <li><a href="dict.html" data-i18n="nav.dict">Dictionary</a></li>
+        <li><a href="stroke-chart.html" data-i18n="nav.stroke">Stroke Chart</a></li>
+        <li><a href="l&p.html" data-i18n="nav.l&p">Learn & Practice</a></li>
+        <li><a href="articles.html" data-i18n="nav.articles">Articles</a></li>
+        <li><a href="about.html" data-i18n="nav.about">About</a></li>
+      </ul>
+      <br>
+      <p class="sidebar-title" data-i18n="nav.its">In this site</p>
+      <ul class="sidebar-list">
+        <li><a href="articles.html" data-i18n="nav.documentation">Documentation</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="content">
+    <section class="introduction introduction--banner">
+      <div class="introduction-banner__text">
+        <h1 data-i18n="index.introduction.title">Miskat Shorthand</h1>
+        <p class="tagline tagline--on-banner" data-i18n="index.introduction.tagline">A fast writing system for Indonesian &amp; Malay — easy to pick up whether you're taking notes, dictation, or just writing faster by hand.</p>
+        <div class="introduction-banner__cta">
+          <a href="l&p.html" class="introduction-cta introduction-cta--solid" data-i18n="index.introduction.cta.learn">Start learning</a>
+          <a href="dict.html" class="introduction-cta introduction-cta--ghost" data-i18n="index.introduction.cta.dict">Open the dictionary</a>
+        </div>
+      </div>
+      <div class="introduction-banner__media">
+
+        <img src="assets/img/introduction.svg" alt="" class="introduction-banner__img">
+      </div>
+    </section>
+    <br>
+    <section class="why-strip">
+      <div class="why-item">
+        <span class="why-item__icon why-item__icon--a"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></span>
+        <div class="why-item__text">
+          <h3 data-i18n="index.why.free.title">Free forever</h3>
+          <p data-i18n="index.why.free.desc">The guide, the dictionary, and the stroke chart cost nothing to use.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <span class="why-item__icon why-item__icon--b"><svg viewBox="0 0 24 24"><path d="M4 20V10M12 20V4M20 20v-7"/></svg></span>
+        <div class="why-item__text">
+          <h3 data-i18n="index.why.chart.title">Every stroke chart, fully mapped</h3>
+          <p data-i18n="index.why.chart.desc">Consonants, vowels, combinations, and markers are laid out clearly — the four core elements of this shorthand.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <span class="why-item__icon why-item__icon--c"><svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h6v16H6a2 2 0 00-2 2V5z"/><path d="M20 5a2 2 0 00-2-2h-6v16h6a2 2 0 012 2V5z"/></svg></span>
+        <div class="why-item__text">
+          <h3 data-i18n="index.why.dict.title">Growing dictionary</h3>
+          <p data-i18n="index.why.dict.desc">Words organized by topic, each with its shorthand form shown.</p>
+        </div>
+      </div>
+      <div class="why-item">
+        <span class="why-item__icon why-item__icon--d"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
+        <div class="why-item__text">
+          <h3 data-i18n="index.why.community.title">Community-driven</h3>
+          <p data-i18n="index.why.community.desc">Connect with fellow users. The system is continuously built and refined — see who's involved below.</p>
+        </div>
+      </div>
+    </section>
+    <br>
+    <section>
+      <div class="feature-grid">
+        <a href="dict.html" class="feature-card feature-card--glow">
+          <span class="feature-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M4 5a2 2 0 012-2h6v16H6a2 2 0 00-2 2V5z"/><path d="M20 5a2 2 0 00-2-2h-6v16h6a2 2 0 012 2V5z"/></svg>
+          </span>
+          <h3 data-i18n="index.quick.dict.title">Dictionary</h3>
+          <p data-i18n="index.quick.dict.desc">Look up words and see their strokes at a glance.</p>
+        </a>
+
+        <a href="stroke-chart.html" class="feature-card feature-card--ring">
+          <span class="feature-card__inner">
+            <span class="feature-card__icon">
+              <svg viewBox="0 0 24 24"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+            </span>
+            <h3 data-i18n="index.quick.stroke.title">Stroke Chart</h3>
+            <p data-i18n="index.quick.stroke.desc">Consonants, vowels, letter combinations, and markers.</p>
+          </span>
+        </a>
+
+        <a href="l&p.html" class="feature-card feature-card--stripe">
+          <span class="feature-card__icon">
+            <svg viewBox="0 0 24 24"><path d="M21.42 10.92a1 1 0 000-1.84L12.83 5.18a2 2 0 00-1.66 0L2.6 9.08a1 1 0 000 1.84l8.57 3.9a2 2 0 001.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V17a6 3 0 0012 0v-4.5"/></svg>
+          </span>
+          <span class="feature-card__body">
+            <h3 data-i18n="index.quick.l&p.title">Learn & Practice</h3>
+            <p data-i18n="index.quick.l&p.desc">Step-by-step from beginner to pro. Drills for speed and muscle memory.</p>
+          </span>
+        </a>
+
+        <a href="about.html" class="feature-card feature-card--outline">
+          <span class="feature-card__icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><path d="M12 7.5v.01"/></svg>
+          </span>
+          <h3 data-i18n="index.quick.about.title">About</h3>
+          <p data-i18n="index.quick.about.desc">The system, draft documentation, and the list of contributors.</p>
+        </a>
+      </div>
+    </section>
+    <br>
+    <section>
+      <h2 class="page-title section-header__title" data-i18n="index.dir.heading">Dictionary topic directory</h2>
+      <p class="page-lead section-header__lead" data-i18n="index.dir.lead">Browse words by topic.</p>
+
+      <div class="topic-directory">
+        <a href="dict.html?topic=High%20Frequency" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 6h6v6"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.freq.title">High Frequency</h3>
+            <p data-i18n="index.dir.freq.desc">The most commonly used words.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Correspondence" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="1.5"/><path d="M4 6.5l8 6 8-6"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.correspondence.title">Correspondence</h3>
+            <p data-i18n="index.dir.correspondence.desc">Terms and brief forms for formal letters.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Formal" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.formal.title">Formal</h3>
+            <p data-i18n="index.dir.formal.desc">Formal or standard vocabulary.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Numbers" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><path d="M5 9h14M5 15h14M9 4L7 20M17 4l-2 16"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.numbers.title">Numbers</h3>
+            <p data-i18n="index.dir.numbers.desc">Counting and quantities.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Time%20%26%20Dates" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.time.title">Time &amp; Dates</h3>
+            <p data-i18n="index.dir.time.desc">Days, months, and clock terms.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Family" class="topic-row" style="--topic-color:#e0447c;">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.family.title">Family</h3>
+            <p data-i18n="index.dir.family.desc">Relatives and kinship terms.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Food%20%26%20Drink" class="topic-row" style="--topic-color:#e07c1a;">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><path d="M6 1.5v3M10 1.5v3M14 1.5v3"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.food.title">Food &amp; Drink</h3>
+            <p data-i18n="index.dir.food.desc">Meals, dishes, and beverages.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Travel" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.travel.title">Travel</h3>
+            <p data-i18n="index.dir.travel.desc">Places, transport, and directions.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Technology" class="topic-row" style="--topic-color:#0ea472;">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.tech.title">Technology</h3>
+            <p data-i18n="index.dir.tech.desc">Computing and internet terms.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Business" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.business.title">Business</h3>
+            <p data-i18n="index.dir.business.desc">Office and workplace vocabulary.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Medical" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.medical.title">Medical</h3>
+            <p data-i18n="index.dir.medical.desc">Health and clinical terms.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Legal" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><path d="M12 3v18M7 3h10"/><path d="M5 9l-3 6a3 3 0 006 0l-3-6z"/><path d="M19 9l-3 6a3 3 0 006 0l-3-6z"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.legal.title">Legal</h3>
+            <p data-i18n="index.dir.legal.desc">Law and government terms.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Weather" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.weather.title">Weather</h3>
+            <p data-i18n="index.dir.weather.desc">Climate and seasonal terms.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Greetings" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.greetings.title">Greetings</h3>
+            <p data-i18n="index.dir.greetings.desc">Everyday polite expressions.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Emotions" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.4-9.5-9A5.5 5.5 0 0112 5a5.5 5.5 0 019.5 7c-2.5 4.6-9.5 9-9.5 9z"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.emotions.title">Emotions</h3>
+            <p data-i18n="index.dir.emotions.desc">Feelings and reactions.</p>
+          </span>
+        </a>
+        <a href="dict.html?topic=Question%20Words" class="topic-row">
+          <span class="topic-row__badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a3 3 0 115.8 1c0 2-3 2-3 4"/><path d="M12 17h.01"/></svg></span>
+          <span class="topic-row__text">
+            <h3 data-i18n="index.dir.questions.title">Question Words</h3>
+            <p data-i18n="index.dir.questions.desc">Interrogatives.</p>
+          </span>
+        </a>
+      </div>
+      <nav class="pagination" id="topicDirectoryPagination" aria-label="Topic directory pagination"></nav>
+    </section>
+    <br>
+    <section id="testimonialSection" class="testimonial-section" hidden>
+      <div class="testimonial-carousel" id="testimonialCarousel"></div>
+    </section>
+    <br>
+    <div class="ad-slot" data-ad="index-inline" aria-label="Advertisement">
+      <span class="ad-slot__label" data-i18n="ads.label">Advertisement</span>
+    </div>
+    <section>
+      <h2 class="page-title section-header__title" data-i18n="index.recent.heading">Recent articles</h2>
+      <p class="page-lead section-header__lead" data-i18n="index.recent.lead">Notes and updates from the project.</p>
+      <div class="recent-articles-panel">
+        <div class="recent-articles-illustration" aria-hidden="true">
+          <img src="assets/img/recent-articles.svg" alt="" class="recent-articles-illustration__img">
+        </div>
+        <div class="recent-articles-main">
+          <div class="recent-articles-list" id="recentArticles"></div>
+          <a href="articles.html" class="recent-articles-viewall" data-i18n="index.recent.viewall">View all articles &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contributorsSection" class="contributors-section" hidden>
+      <h2 class="page-title section-header__title" data-i18n="index.contrib.heading">Contributors</h2>
+      <p class="page-lead section-header__lead" data-i18n="index.contrib.lead">Active members &amp; newcomers.</p>
+      <div class="contributor-list" id="contributorGrid"></div>
+    </section>
+  </main>
+</div>
+
+<footer class="site-footer" data-i18n="footer.text">Miskat Shorthand — Indonesian & Malay Steno.</footer>
+
+<footer class="site-footer-ls" data-i18n="footer.ls">Free for personal, educational, and non-commercial use. For commercial purposes, a licensing agreement is required — contact us.</footer>
+
+<script src="assets/js/site.js?v=1.4.6"></script>
+<script src="assets/js/i18n.js?v=1.4.5"></script>
+<script src="assets/js/topic-pagination.js?v=1.4.5"></script>
+<script src="assets/js/contributors.js?v=1.4.6"></script>
+<script src="assets/js/articles.js?v=1.4.6"></script>
+<script src="assets/js/ads.js?v=1.0.0"></script>
+</body>
+</html>

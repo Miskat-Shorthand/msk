@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 220 320" width="220" height="320"
+  role="img" aria-labelledby="ms-recent-title ms-recent-desc">
+  <title id="ms-recent-title">Recent articles illustration</title>
+  <desc id="ms-recent-desc">Layered article sheets with a pink bookmark and diagonal pen, designed to match the Miskat Shorthand homepage.</desc>
+
+  <defs>
+    <linearGradient id="ms-recent-band" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ef8dad"/>
+      <stop offset=".55" stop-color="#e2478d"/>
+      <stop offset="1" stop-color="#d83f82"/>
+    </linearGradient>
+    <linearGradient id="ms-recent-pen" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#e86d9c"/>
+      <stop offset=".52" stop-color="#dc4a88"/>
+      <stop offset="1" stop-color="#f0a05c"/>
+    </linearGradient>
+    <filter id="ms-recent-shadow" x="-30%" y="-30%" width="165%" height="170%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#2b2630" flood-opacity=".12"/>
+    </filter>
+  </defs>
+
+  <!-- very soft organic color echo, intentionally much lighter than the card -->
+  <path d="M48 103
+           C28 126 30 176 46 206
+           C60 232 78 250 105 253
+           C132 256 158 241 170 215
+           C182 189 188 150 170 126
+           C151 101 117 89 89 90
+           C71 91 57 95 48 103 Z"
+        fill="#df4a92" opacity=".075"/>
+
+  <!-- rear article sheet -->
+  <g transform="rotate(-6 110 150)" filter="url(#ms-recent-shadow)">
+    <rect x="47" y="61" width="127" height="165" rx="14"
+          fill="#fffaf0"/>
+    <rect x="47.7" y="61.7" width="125.6" height="163.6" rx="13.3"
+          fill="none" stroke="#e9dfce" stroke-width="1.4"/>
+    <g stroke="#e9e1d4" stroke-width="1.5" stroke-linecap="round">
+      <line x1="64" y1="95" x2="156" y2="95"/>
+      <line x1="64" y1="118" x2="156" y2="118"/>
+      <line x1="64" y1="141" x2="136" y2="141"/>
+    </g>
+  </g>
+
+  <!-- front article sheet -->
+  <g transform="rotate(4 110 174)" filter="url(#ms-recent-shadow)">
+    <rect x="39" y="96" width="134" height="153" rx="14"
+          fill="#fffdf9"/>
+    <rect x="39.7" y="96.7" width="132.6" height="151.6" rx="13.3"
+          fill="none" stroke="#e7e1d9" stroke-width="1.4"/>
+
+    <!-- pink article strap -->
+    <rect x="39" y="101" width="134" height="18" rx="9"
+          fill="url(#ms-recent-band)"/>
+
+    <!-- bookmark -->
+    <path d="M128 100 H148 V136
+             L138 129 L128 136 Z"
+          fill="#d93f84"/>
+
+    <!-- article text -->
+    <g stroke="#e3e5e9" stroke-width="1.7" stroke-linecap="round">
+      <line x1="57" y1="145" x2="153" y2="145"/>
+      <line x1="57" y1="164" x2="149" y2="164"/>
+      <line x1="57" y1="183" x2="119" y2="183"/>
+    </g>
+
+    <!-- small metadata accents -->
+    <rect x="57" y="202" width="42" height="4.5" rx="2.25"
+          fill="#efc6d4"/>
+    <rect x="57" y="214" width="67" height="3.5" rx="1.75"
+          fill="#eceef1"/>
+  </g>
+
+  <!-- diagonal pen -->
+  <g transform="translate(154 219) rotate(38)" filter="url(#ms-recent-shadow)">
+    <rect x="-6" y="-55" width="12" height="91" rx="6"
+          fill="url(#ms-recent-pen)"/>
+    <rect x="-6" y="-55" width="12" height="15" rx="6"
+          fill="#343942"/>
+    <path d="M-6 36 L0 49 L6 36 Z" fill="#343942"/>
+    <path d="M-1.8 43 L0 49 L1.8 43 Z" fill="#d8a552"/>
+  </g>
+</svg>

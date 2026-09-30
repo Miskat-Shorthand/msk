@@ -1,0 +1,58 @@
+name: Sync MSK data
+
+on:
+  schedule:
+    - cron: "*/20 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-msk-data
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch latest data from Apps Script
+        run: |
+          set -e
+          mkdir -p assets/data
+          curl -sfL --max-time 60 \
+            "https://script.google.com/macros/s/AKfycbx56NY8Z9U_kw4E2F_6pjsWSmATgheLC43QgH1rHO7atFoWNg_pqyi5XwQEkKdgqQSt/exec" \
+            -o assets/data/msk-data.new.json
+
+      - name: Validate JSON before replacing anything
+        run: |
+          python3 -c "
+          import json, sys
+          with open('assets/data/msk-data.new.json') as f:
+              data = json.load(f)
+          if not isinstance(data, dict) or not data:
+              sys.exit('Response was empty or not an object')
+          "
+
+      - name: Replace snapshot only if changed
+        id: diff
+        run: |
+          if [ -f assets/data/msk-data.json ] && cmp -s assets/data/msk-data.new.json assets/data/msk-data.json; then
+            rm assets/data/msk-data.new.json
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            mv assets/data/msk-data.new.json assets/data/msk-data.json
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push if changed
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/data/msk-data.json
+          git commit -m "chore: sync data from Google Sheet"
+          git push

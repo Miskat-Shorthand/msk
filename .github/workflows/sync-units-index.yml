@@ -1,0 +1,56 @@
+name: Sync units index
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-units-index
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fetch structure from the restricted Apps Script
+        run: |
+          set -e
+          UNIT_API_URL="PASTE_YOUR_SEPARATE_RESTRICTED_EXEC_URL_HERE"
+          curl -sfL --max-time 60 "${UNIT_API_URL}?mode=index" -o assets/units-index.new.json
+
+      - name: Validate JSON before replacing anything
+        run: |
+          python3 -c "
+          import json, sys
+          with open('assets/units-index.new.json') as f:
+              data = json.load(f)
+          if not isinstance(data, list):
+              sys.exit('Response was not a list')
+          "
+
+      - name: Replace index only if changed
+        id: diff
+        run: |
+          if [ -f assets/units-index.json ] && cmp -s assets/units-index.new.json assets/units-index.json; then
+            rm assets/units-index.new.json
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            mv assets/units-index.new.json assets/units-index.json
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push if changed
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/units-index.json
+          git commit -m "chore: sync units structure from Drive"
+          git push

@@ -1,0 +1,48 @@
+<!--meta
+{"title": "Contoh Gaya Artikel: Semua Elemen dalam Satu Halaman", "excerpt": "Referensi hidup untuk semua elemen HTML yang didukung template artikel — heading, list, kutipan, kode, dan figure yang sudah center — dalam satu halaman."}
+-->
+<p>Artikel ini sebenarnya tidak membahas apa-apa — isinya sengaja dibuat supaya setiap <strong>elemen</strong> yang didukung template artikel muncul di satu halaman. Kalau kamu sedang menulis artikel baru dan ragu "tampilannya sudah benar belum ya?", cek di sini dulu sebelum publish.</p>
+
+<p>Format inline dasar: <strong>teks tebal</strong>, <em>teks miring</em>, dan <code>kode inline</code> — semuanya bisa langsung dipakai di dalam paragraf seperti ini, tanpa markup tambahan selain tag itu sendiri.</p>
+
+<h2>Heading level-2</h2>
+<p>Pakai <code>&lt;h2&gt;</code> untuk bagian utama sebuah artikel — ukuran ini yang dipakai artikel Tata Bahasa Jepang untuk "The particle is the grammar," misalnya.</p>
+
+<h3>Heading level-3</h3>
+<p>Pakai <code>&lt;h3&gt;</code> untuk sub-poin di dalam satu bagian — lebih kecil dari <code>&lt;h2&gt;</code>, tetap tebal, dengan jarak atas yang lebih rapat.</p>
+
+<h2>List</h2>
+<p>List tak berurutan:</p>
+<ul>
+  <li>Poin pertama, tanpa urutan khusus</li>
+  <li>Poin kedua</li>
+  <li>Poin ketiga, dengan <code>kode inline</code> di dalam item list</li>
+</ul>
+<p>List berurutan:</p>
+<ol>
+  <li>Lakukan ini dulu</li>
+  <li>Lalu ini</li>
+  <li>Terakhir, ini</li>
+</ol>
+
+<h2>Blockquote</h2>
+<blockquote>Blockquote dipakai untuk mengutip orang atau sumber lain — tampilannya diberi garis kiri dan warna redup, bukan miring, supaya tidak tertukar dengan <code>&lt;em&gt;</code>.</blockquote>
+
+<h2>Figure dengan caption</h2>
+<p>Ini bagian yang tadinya bermasalah: gambar di bawah sengaja dibuat lebih sempit dari lebar kolom artikel, untuk membuktikan sekarang posisinya center bersama caption-nya — bukan malah nempel ke kiri.</p>
+<figure>
+  <img src="figure-demo.svg" alt="Grafik kotak kecil untuk mendemonstrasikan perataan figure">
+  <figcaption>Gbr. 1 — gambar dan caption sekarang sejajar di garis tengah yang sama, berapa pun lebar gambarnya.</figcaption>
+</figure>
+
+<h2>Blok kode</h2>
+<p>Untuk kode multi-baris atau teks preformatted, pakai <code>&lt;pre&gt;&lt;code&gt;</code>:</p>
+<pre><code>function greet(name) {
+  return "Hello, " + name + "!";
+}</code></pre>
+
+<h2>Gambar inline biasa</h2>
+<p>Tidak semua gambar butuh caption — <code>&lt;img&gt;</code> polos tanpa pembungkus <code>&lt;figure&gt;</code> juga didukung, dan tetap rata kiri di posisi blok aslinya, bukan center:</p>
+<img src="figure-demo.svg" alt="Grafik kotak kecil yang sama, kali ini tanpa pembungkus figure">
+
+<p>Itu semua elemen yang saat ini punya gaya di template ini. Kalau kamu menambahkan sesuatu yang baru ke body artikel dan tampilannya polos atau posisinya aneh, biasanya tinggal tambahkan aturan ke bagian <code>.article-body</code> di <code>assets/style.css</code> — halaman ini tempatnya untuk mengetesnya.</p>

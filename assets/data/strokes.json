@@ -1,0 +1,817 @@
+{
+  "_readme": "Edit this file to add stroke images and notes. Each item: { id, label, notes: {en, id}, forms: [...] }. forms: each is { pos, img }. pos is 'normal' (the base/non-positional way to write it -- shown bigger when it appears alongside 3 or more forms in the same row, e.g. next to initial/medial/final), 'initial', 'medial', 'final', or '' (no named position at all -- shown as Form 1, Form 2, ... with no size boost). Repeat the same pos twice (e.g. two 'initial' entries) for alternate ways to write that position -- they'll be auto-numbered 'Initial 1' / 'Initial 2'. img is a relative path to a png/svg/jpg file, e.g. 'assets/img/stroke/a-initial.svg'. Leave img empty ('') for slots you haven't drawn yet -- shows a placeholder box instead. notes.en / notes.id is a short line shown under the card (how to form the stroke, a memory tip, etc.) -- leave both empty to hide the notes line entirely. Add a whole new group (e.g. more digraphs, more markers) by copying a group object and changing its id/label/items.",
+  "groups": [
+    {
+      "id": "alphabet",
+      "label": {
+        "en": "Alphabet",
+        "id": "Alfabet",
+        "ms": "Alfabet"
+      },
+      "items": [
+        {
+          "id": "a",
+          "label": "A",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "b",
+          "label": "B",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "c",
+          "label": "C",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "d",
+          "label": "D",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "e",
+          "label": "E",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "f",
+          "label": "F",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "g",
+          "label": "G",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "h",
+          "label": "H",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "i",
+          "label": "I",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "j",
+          "label": "J",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "k",
+          "label": "K",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "l",
+          "label": "L",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "m",
+          "label": "M",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "n",
+          "label": "N",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "o",
+          "label": "O",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "p",
+          "label": "P",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "q",
+          "label": "Q",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "r",
+          "label": "R",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "s",
+          "label": "S",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "t",
+          "label": "T",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "u",
+          "label": "U",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "v",
+          "label": "V",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "w",
+          "label": "W",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "x",
+          "label": "X",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "y",
+          "label": "Y",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "z",
+          "label": "Z",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "initial",
+              "img": ""
+            },
+            {
+              "pos": "medial",
+              "img": ""
+            },
+            {
+              "pos": "final",
+              "img": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "digraph",
+      "label": {
+        "en": "Digraphs & Consonant Blends",
+        "id": "Gabungan Huruf (Digraf)",
+        "ms": "Gabungan Huruf (Digraf)"
+      },
+      "items": [
+        {
+          "id": "ng",
+          "label": "NG",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "ny",
+          "label": "NY",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "ngg",
+          "label": "NGG",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "sy",
+          "label": "SY",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "kh",
+          "label": "KH",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pattern3",
+      "label": {
+        "en": "Special 3-Letter Patterns",
+        "id": "Pola Khusus 3 Huruf",
+        "ms": "Pola Khusus 3 Huruf"
+      },
+      "items": [
+        {
+          "id": "syen",
+          "label": "SYEN",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "ban",
+          "label": "BAN",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "pit",
+          "label": "PIT",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "markers",
+      "label": {
+        "en": "Markers & Punctuation Signs",
+        "id": "Penanda & Tanda Baca",
+        "ms": "Penanda & Tanda Baca"
+      },
+      "items": [
+        {
+          "id": "period",
+          "label": ".",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "comma",
+          "label": ",",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "question",
+          "label": "?",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "capital",
+          "label": "Kap",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "number",
+          "label": "#",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        },
+        {
+          "id": "paragraph",
+          "label": "¶",
+          "notes": {
+            "en": "",
+            "id": ""
+          },
+          "forms": [
+            {
+              "pos": "normal",
+              "img": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
