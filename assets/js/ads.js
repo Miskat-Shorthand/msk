@@ -1,16 +1,16 @@
-/* AdSense slots.
- * HTML hanya berisi <div class="ad-slot" data-ad="KEY"></div>.
- * Isi ID slot dari AdSense (Ads > By ad unit > Display ads) di SLOTS di bawah.
- * Slot yang ID-nya masih kosong TIDAK ditampilkan (tidak ada kotak kosong).
+/* AdSense slots
+ * HTML only contains <div class="ad-slot" data-ad="KEY"></div>.
+ * Fill in the slot ID from AdSense (Ads > By ad unit > Display ads) in SLOTS below.
+ * Slots whose ID is still empty are NOT displayed (no empty boxes).
  */
 (function () {
   "use strict";
   var CLIENT = "ca-pub-2825498315021318";
   var SLOTS = {
-    "article-rail":   "",  // sidebar kanan desktop lebar (article.html)
-    "article-inline": "",  // di bawah artikel, semua layar (article.html)
-    "index-inline":   "",  // antara testimonial & Recent articles (index.html)
-    "unit-inline":    ""   // di bawah konten unit (unit.html)
+    "article-rail":   "",  // (article.html)
+    "article-inline": "",  // (article.html)
+    "index-inline":   "",  // (index.html)
+    "unit-inline":    ""   // (unit.html)
   };
 
   function isVisible(node) {
@@ -48,8 +48,6 @@
       fill(slots[i]);
   }
 
-  // Slot yang tersembunyi (mis. rail di layar kecil) tidak boleh di-push:
-  // AdSense error "availableWidth=0". Jadi scan ulang saat layar berubah.
   var timer = null;
   function later() {
     clearTimeout(timer);
