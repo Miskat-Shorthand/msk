@@ -7,6 +7,7 @@
   "nav.l&p": "Belajar & Latihan",
   "nav.about": "Tentang",
   "nav.articles": "Artikel",
+  "nav.search": "Cari",
   "nav.documentation": "Dokumentasi",
   "nav.sidebar": "Bar",
   "nav.its": "Di situs ini",
@@ -187,5 +188,19 @@
   "unit.loaderror": "Gagal memuat unit ini. Coba lagi sesaat lagi.",
   "unit.restricted.notice": "Konten ini hanya untuk dilihat di sini — menyalin, menyimpan, dan mencetak dinonaktifkan.",
   "unit.count.one": "unit",
-  "unit.count.many": "unit"
+  "unit.count.many": "unit",
+  "search.title": "Pencarian",
+  "search.lead": "Cari artikel dan unit Belajar & Latihan.",
+  "search.label": "Cari di situs",
+  "search.placeholder": "Ketik untuk mencari…",
+  "search.submit": "Cari",
+  "search.hint": "Ketik minimal 2 karakter untuk mencari.",
+  "search.loading": "Memuat…",
+  "search.error": "Gagal memuat indeks pencarian. Coba lagi nanti.",
+  "search.none": "Tidak ada hasil untuk “{query}”.",
+  "search.count.one": "1 hasil",
+  "search.count.other": "{count} hasil",
+  "search.capped": "Menampilkan {count} pertama.",
+  "search.type.article": "Artikel",
+  "search.type.unit": "Unit"
 }

@@ -1,0 +1,71 @@
+/*
+ * Styles for search.html only. Everything is built from the theme variables
+ * defined in style.css, so light and dark themes both work.
+ */
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8);
+  margin: var(--space-16) 0 var(--space-8);
+}
+
+/* Visually hidden but still read by screen readers. */
+.search-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.search-form .search-input {
+  flex: 1 1 14rem;
+}
+
+.search-submit {
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--r-md);
+  border: none;
+  background: var(--accent);
+  color: var(--accent-contrast);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+}
+
+.search-submit:focus-visible {
+  outline: var(--bw-thick) solid var(--focus-ring);
+  outline-offset: var(--focus-offset-input);
+}
+
+.search-status {
+  min-height: 1.4em;
+  margin: var(--space-8) 0 0;
+  font-size: var(--fs-md);
+  color: var(--text-muted);
+}
+
+mark.search-hit {
+  padding: 0 1px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--accent) 24%, transparent);
+  color: inherit;
+}
+
+.search-result__type {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.search-result__crumbs {
+  margin: 0 0 var(--space-8);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}

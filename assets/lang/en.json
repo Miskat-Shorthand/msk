@@ -7,6 +7,7 @@
   "nav.l&p": "Learn & Practice",
   "nav.about": "About",
   "nav.articles": "Articles",
+  "nav.search": "Search",
   "nav.documentation": "Documentation",
   "nav.sidebar": "Sidebar",
   "nav.its": "In this site",
@@ -187,5 +188,19 @@
   "unit.loaderror": "Failed to load this unit. Please try again in a moment.",
   "unit.restricted.notice": "This content is for viewing only here — copying, saving, and printing are disabled.",
   "unit.count.one": "unit",
-  "unit.count.many": "units"
+  "unit.count.many": "units",
+  "search.title": "Search",
+  "search.lead": "Search articles and Learn & Practice units.",
+  "search.label": "Search the site",
+  "search.placeholder": "Type to search…",
+  "search.submit": "Search",
+  "search.hint": "Type at least 2 characters to search.",
+  "search.loading": "Loading…",
+  "search.error": "Couldn't load the search index. Please try again later.",
+  "search.none": "No results for “{query}”.",
+  "search.count.one": "1 result",
+  "search.count.other": "{count} results",
+  "search.capped": "Showing the first {count}.",
+  "search.type.article": "Article",
+  "search.type.unit": "Unit"
 }

@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # No lockfile is committed yet. After the first local `npm install`,
+      # commit package-lock.json and switch this line to `npm ci`.
+      - name: Install dev dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Generated files are up to date
+        run: npm run build:check
+
+      - name: Type-check, unit tests, Python tests
+        run: npm test

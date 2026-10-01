@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "articles": [
+    {
+      "slug": "style-showcase",
+      "date": "2026-09-02",
+      "tags": [
+        "meta",
+        "style-guide"
+      ],
+      "langs": {
+        "en": {
+          "title": "Article Style Showcase: Every Element, One Page",
+          "excerpt": "A living reference for every HTML element the article template supports — headings, lists, quotes, code, and a centered figure — all in one place.",
+          "body": "This article isn't really about anything — it exists so that every element the article template supports shows up somewhere on one page. If you're writing a new article and wondering \"does this look right?\", check here first before publishing. Basic inline formatting: bold text, italic text, and inline code all sit directly inside a paragraph like this one, no special markup needed beyond the tag itself. A level-2 heading Use <h2> for the main sections of an article — this is the size Japanese Grammar uses for \"The particle is the grammar,\" for example. A level-3 heading Use <h3> for a sub-point inside a section — smaller than <h2>, still bold, less top margin. Lists An unordered list: First point, no particular order Second point Third point, with inline code inside a list item An ordered list: Do this first Then this Finally, this Blockquote A blockquote is for quoting someone or something external — it gets a left border and muted color, not italics, so it doesn't get confused with <em>. A figure with a caption This is the one that needed fixing: the image below is narrower than the article column on purpose, to prove it now centers along with its caption instead of hugging the left edge. Fig. 1 — image and caption now share the same center line, at any image width. A code block For multi-line code or preformatted text, use <pre><code>: function greet(name) { return \"Hello, \" + name + \"!\"; } A plain inline image Not every image needs a caption — a bare <img> with no <figure> wrapper is also supported, and stays left-aligned at its natural block position rather than centered: That covers every element this template currently styles. If you add something new to an article body and it looks unstyled or oddly positioned, it probably just needs a rule added to the .article-body section of assets/style.css — this page is the place to test it."
+        },
+        "id": {
+          "title": "Contoh Gaya Artikel: Semua Elemen dalam Satu Halaman",
+          "excerpt": "Referensi hidup untuk semua elemen HTML yang didukung template artikel — heading, list, kutipan, kode, dan figure yang sudah center — dalam satu halaman.",
+          "body": "Artikel ini sebenarnya tidak membahas apa-apa — isinya sengaja dibuat supaya setiap elemen yang didukung template artikel muncul di satu halaman. Kalau kamu sedang menulis artikel baru dan ragu \"tampilannya sudah benar belum ya?\", cek di sini dulu sebelum publish. Format inline dasar: teks tebal, teks miring, dan kode inline — semuanya bisa langsung dipakai di dalam paragraf seperti ini, tanpa markup tambahan selain tag itu sendiri. Heading level-2 Pakai <h2> untuk bagian utama sebuah artikel — ukuran ini yang dipakai artikel Tata Bahasa Jepang untuk \"The particle is the grammar,\" misalnya. Heading level-3 Pakai <h3> untuk sub-poin di dalam satu bagian — lebih kecil dari <h2>, tetap tebal, dengan jarak atas yang lebih rapat. List List tak berurutan: Poin pertama, tanpa urutan khusus Poin kedua Poin ketiga, dengan kode inline di dalam item list List berurutan: Lakukan ini dulu Lalu ini Terakhir, ini Blockquote Blockquote dipakai untuk mengutip orang atau sumber lain — tampilannya diberi garis kiri dan warna redup, bukan miring, supaya tidak tertukar dengan <em>. Figure dengan caption Ini bagian yang tadinya bermasalah: gambar di bawah sengaja dibuat lebih sempit dari lebar kolom artikel, untuk membuktikan sekarang posisinya center bersama caption-nya — bukan malah nempel ke kiri. Gbr. 1 — gambar dan caption sekarang sejajar di garis tengah yang sama, berapa pun lebar gambarnya. Blok kode Untuk kode multi-baris atau teks preformatted, pakai <pre><code>: function greet(name) { return \"Hello, \" + name + \"!\"; } Gambar inline biasa Tidak semua gambar butuh caption — <img> polos tanpa pembungkus <figure> juga didukung, dan tetap rata kiri di posisi blok aslinya, bukan center: Itu semua elemen yang saat ini punya gaya di template ini. Kalau kamu menambahkan sesuatu yang baru ke body artikel dan tampilannya polos atau posisinya aneh, biasanya tinggal tambahkan aturan ke bagian .article-body di assets/style.css — halaman ini tempatnya untuk mengetesnya."
+        }
+      }
+    }
+  ]
+}

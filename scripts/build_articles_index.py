@@ -67,19 +67,18 @@ def read_lang_file(path, warn):
     return {"title": title, "excerpt": excerpt, "readMins": read_mins}
 
 
-def main():
-    warnings = []
+def collect_entries(warn, articles_dir=ARTICLES_DIR):
+    """Scan articles_dir and return the sorted list of article entries.
 
-    def warn(msg):
-        warnings.append(msg)
-        print("WARN:", msg, file=sys.stderr)
-
+    Shared with scripts/build_search_and_feeds.py so both outputs always
+    agree on titles, excerpts, tags and dates.
+    """
     entries = []
-    if not os.path.isdir(ARTICLES_DIR):
+    if not os.path.isdir(articles_dir):
         warn("no articles/ directory found — writing an empty index")
     else:
-        for name in sorted(os.listdir(ARTICLES_DIR)):
-            folder = os.path.join(ARTICLES_DIR, name)
+        for name in sorted(os.listdir(articles_dir)):
+            folder = os.path.join(articles_dir, name)
             if not os.path.isdir(folder):
                 continue
             m = FOLDER_RE.match(name)
@@ -132,6 +131,17 @@ def main():
             })
 
     entries.sort(key=lambda e: (e["date"], e["slug"]), reverse=True)
+    return entries
+
+
+def main():
+    warnings = []
+
+    def warn(msg):
+        warnings.append(msg)
+        print("WARN:", msg, file=sys.stderr)
+
+    entries = collect_entries(warn)
 
     os.makedirs(os.path.dirname(OUT_PATH), exist_ok=True)
     with open(OUT_PATH, "w", encoding="utf-8") as f:

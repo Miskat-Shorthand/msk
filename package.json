@@ -1,0 +1,21 @@
+{
+    "name": "msk",
+    "private": true,
+    "type": "module",
+    "description": "Tooling for the Miskat Shorthand site: tests and type checks. The site itself is plain HTML/CSS/JS and needs no build step to run.",
+    "engines": {
+        "node": ">=22.18"
+    },
+    "scripts": {
+        "build": "python3 scripts/build_articles_index.py && python3 scripts/build_search_and_feeds.py",
+        "build:check": "python3 scripts/build_search_and_feeds.py --check",
+        "check:ts": "tsc --noEmit -p tsconfig.json",
+        "test:unit": "node --test \"tests/**/*.test.ts\"",
+        "test:py": "python3 -m unittest discover -s tests/python -v",
+        "test": "npm run check:ts && npm run test:unit && npm run test:py"
+    },
+    "devDependencies": {
+        "@types/node": "^22.0.0",
+        "typescript": "^5.9.3"
+    }
+}

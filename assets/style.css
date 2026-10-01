@@ -675,6 +675,7 @@ html[data-theme="light"] .theme-toggle .icon-sun {
   flex: 1;
   min-width: 0;
   padding: var(--space-32) var(--space-28) var(--space-60);
+  container: content / inline-size;
 }
 
 .content-narrow {
@@ -734,6 +735,27 @@ html[data-theme="light"] .theme-toggle .icon-sun {
 
 .content > br {
   display: none;
+}
+
+@container content (min-width: 654px) {
+  .content > .introduction + br,
+  .content > .why-strip + br,
+  .content > section:has(> .feature-grid) + br,
+  .content > section:has(> .topic-directory) + br:has(+ #testimonialSection:not([hidden])),
+  .content > #testimonialSection + br,
+  .content > .page-header + br:has(+ .topic-chips:not([hidden])),
+  .content > #contributorsCurrentSection:not([hidden]) + #aboutContribBr:has(+ #contributorsAboutSection:not([hidden])),
+  .content:has(> :is(#contributorsCurrentSection, #contributorsAboutSection):not([hidden])) > #aboutLicenseBr {
+    display: inline;
+  }
+
+  .article-body :is(figure, img, pre, table, blockquote, .callout) + :is(h2, h3)::before {
+    content: "\A";
+    white-space: pre;
+    display: block;
+    font-size: var(--fs-xl);
+    line-height: var(--lh-loose);
+  }
 }
 
 :where(.content > section:not(.article-list):not(.edition-list)) {
