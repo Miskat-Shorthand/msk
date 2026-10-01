@@ -4,7 +4,7 @@
   var SLOTS = {
     "article-rail": "",
     "article-inline": "",
-    "index-inline": "",
+    "index-inline": "3956762079",
     "unit-inline": ""
   };
 
