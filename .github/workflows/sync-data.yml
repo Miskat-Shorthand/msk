@@ -2,7 +2,7 @@ name: Sync MSK data
 
 on:
   schedule:
-    - cron: "*/20 * * * *"
+    - cron: "*/3 * * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -23,24 +23,42 @@ jobs:
         run: |
           set -e
           mkdir -p assets/data
-          curl -sfL --retry 3 --retry-delay 5 --max-time 60 \
-            "https://script.google.com/macros/s/AKfycbx56NY8Z9U_kw4E2F_6pjsWSmATgheLC43QgH1rHO7atFoWNg_pqyi5XwQEkKdgqQSt/exec" \
+          curl -sSfL --retry 3 --retry-delay 5 --max-time 90 \
+            -H "Cache-Control: no-cache" \
+            -w "HTTP %{http_code}, %{size_download} bytes\n" \
+            "https://script.google.com/macros/s/AKfycbx56NY8Z9U_kw4E2F_6pjsWSmATgheLC43QgH1rHO7atFoWNg_pqyi5XwQEkKdgqQSt/exec?nocache=$(date +%s)" \
             -o assets/data/msk-data.new.json
 
-      - name: Validate JSON before replacing anything
+      - name: Validate JSON and report what was fetched
         run: |
           python3 - <<'PY'
-          import json, sys
-          with open('assets/data/msk-data.new.json', encoding='utf-8') as f:
-              data = json.load(f)
-          if not isinstance(data, dict):
-              sys.exit('Response was not an object')
-          for sheet in ('Indonesian & Malay', 'Contributor'):
-              entry = data.get(sheet)
-              if not isinstance(entry, dict) or not entry.get('values'):
-                  sys.exit('Missing or empty sheet: ' + sheet)
-          PY
+          import json, sys, os
 
+          def summary(data):
+              out = {}
+              for name in ('Indonesian & Malay', 'Contributor'):
+                  rows = (data.get(name) or {}).get('values') or []
+                  out[name] = max(len(rows) - 1, 0)
+              names = [str(r[1]) for r in ((data.get('Contributor') or {}).get('values') or [])[1:] if len(r) > 1]
+              return out, names
+
+          with open('assets/data/msk-data.new.json', encoding='utf-8') as f:
+              new = json.load(f)
+          if not isinstance(new, dict):
+              sys.exit('Response was not an object: ' + str(new)[:300])
+          for sheet in ('Indonesian & Malay', 'Contributor'):
+              entry = new.get(sheet)
+              if not isinstance(entry, dict) or not entry.get('values'):
+                  sys.exit('Missing or empty sheet: ' + sheet + ' | keys=' + str(list(new.keys())))
+
+          n_new, c_new = summary(new)
+          print('FETCHED  rows:', n_new, '| contributors:', c_new)
+          if os.path.exists('assets/data/msk-data.json'):
+              with open('assets/data/msk-data.json', encoding='utf-8') as f:
+                  n_old, c_old = summary(json.load(f))
+              print('SNAPSHOT rows:', n_old, '| contributors:', c_old)
+          PY
+      
       - name: Replace snapshot only if changed
         id: diff
         run: |
