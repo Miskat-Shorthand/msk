@@ -744,6 +744,7 @@ html[data-theme="light"] .theme-toggle .icon-sun {
   .content > section:has(> .topic-directory) + br:has(+ #testimonialSection:not([hidden])),
   .content > #testimonialSection + br,
   .content > .page-header + br:has(+ .topic-chips:not([hidden])),
+  .content > #strokeStatus + br,
   .content > #contributorsCurrentSection:not([hidden]) + #aboutContribBr:has(+ #contributorsAboutSection:not([hidden])),
   .content:has(> :is(#contributorsCurrentSection, #contributorsAboutSection):not([hidden])) > #aboutLicenseBr {
     display: inline;
