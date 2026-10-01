@@ -153,6 +153,58 @@
     });
     return withDots;
   }
+  var tagObserver = null;
+  function fitTags(row) {
+    var pills = Array.prototype.slice.call(row.querySelectorAll("a.article-tag-pill"));
+    var oldMore = row.querySelector(".article-tag-more");
+    if (oldMore)
+      row.removeChild(oldMore);
+    pills.forEach(function (p) { p.hidden = false; p.style.maxWidth = ""; });
+    if (row.scrollWidth <= row.clientWidth)
+      return;
+    var more = text("span", "article-tag-pill article-tag-more", "\u2026");
+    more.setAttribute("aria-hidden", "true");
+    row.appendChild(more);
+    var i = pills.length - 1;
+    while (i > 0 && row.scrollWidth > row.clientWidth) {
+      pills[i].hidden = true;
+      i--;
+    }
+    if (pills.length && row.scrollWidth > row.clientWidth) {
+      var gap = parseFloat(window.getComputedStyle(row).columnGap) || 0;
+      pills[0].style.maxWidth = Math.max(0, row.clientWidth - more.offsetWidth - gap) + "px";
+    }
+  }
+  function fitAllTags(scope) {
+    var rows = scope.querySelectorAll(".article-card__tags");
+    for (var i = 0; i < rows.length; i++)
+      fitTags(rows[i]);
+  }
+  function watchTagRows(scope) {
+    if (tagObserver) {
+      tagObserver.disconnect();
+      tagObserver = null;
+    }
+    fitAllTags(scope);
+    if (window.ResizeObserver) {
+      tagObserver = new ResizeObserver(function (changes) {
+        changes.forEach(function (c) { fitTags(c.target); });
+      });
+      var rows = scope.querySelectorAll(".article-card__tags");
+      for (var i = 0; i < rows.length; i++)
+        tagObserver.observe(rows[i]);
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { fitAllTags(scope); });
+    }
+  }
+  if (!window.ResizeObserver) {
+    window.addEventListener("resize", function () {
+      var listEl = document.getElementById("articleList");
+      if (listEl)
+        fitAllTags(listEl);
+    });
+  }
   function renderCard(entry) {
     var picked = pickLang(entry);
     var cardClass = "article-card" + (entry.thumbnail ? " article-card--has-thumb" : "");
@@ -160,23 +212,25 @@
     if (entry.thumbnail) {
       card.appendChild(el("img", { class: "article-card__thumb", src: entry.thumbnail, alt: "", loading: "lazy" }, []));
     }
+    var body = el("div", { class: "article-card__body" }, []);
     var titleEl = text("h3", "article-card__title", "");
     var titleLink = text("a", null, picked.data.title);
     titleLink.href = "article.html?slug=" + encodeURIComponent(entry.slug);
     titleEl.appendChild(titleLink);
-    card.appendChild(titleEl);
+    body.appendChild(titleEl);
     var meta = el("div", { class: "article-card__meta" }, [
       text("span", null, formatDate(entry.date)),
       text("span", "article-card__dot", "·"),
       text("span", null, picked.data.readMins + " " + t("articles.min-read", "min read"))
     ]);
-    card.appendChild(meta);
-    card.appendChild(text("p", "article-card__excerpt", picked.data.excerpt));
+    body.appendChild(meta);
+    body.appendChild(text("p", "article-card__excerpt", picked.data.excerpt));
     if (entry.tags && entry.tags.length) {
       var tagRow = el("div", { class: "article-card__tags" }, []);
       entry.tags.forEach(function (tg) { tagRow.appendChild(tagPill(tg)); });
-      card.appendChild(tagRow);
+      body.appendChild(tagRow);
     }
+    card.appendChild(body);
     return card;
   }
   function renderList() {
@@ -202,6 +256,7 @@
       var start = (listState.page - 1) * listState.pageSize;
       var pageEntries = entries.slice(start, start + listState.pageSize);
       pageEntries.forEach(function (entry) { listEl.appendChild(renderCard(entry)); });
+      watchTagRows(listEl);
       if (pagEl) {
         pagEl.innerHTML = "";
         if (total > 1) {

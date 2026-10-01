@@ -150,9 +150,11 @@
     var card = el("a", { class: "article-card" + (hasThumb ? " article-card--has-thumb" : ""), href: href }, []);
     if (hasThumb)
       card.appendChild(el("img", { class: "article-card__thumb", src: node.thumbnail, alt: "", loading: "lazy" }, []));
-    card.appendChild(text("h3", "article-card__title", picked.data.title));
+    var cBody = el("div", { class: "article-card__body" }, []);
+    cBody.appendChild(text("h3", "article-card__title", picked.data.title));
     if (picked.data.summary)
-      card.appendChild(text("p", "article-card__excerpt", picked.data.summary));
+      cBody.appendChild(text("p", "article-card__excerpt", picked.data.summary));
+    card.appendChild(cBody);
     return card;
   }
 
