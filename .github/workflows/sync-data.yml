@@ -58,7 +58,38 @@ jobs:
                   n_old, c_old = summary(json.load(f))
               print('SNAPSHOT rows:', n_old, '| contributors:', c_old)
           PY
-      
+          
+      - name: Strip private columns
+        run: |
+          python3 - <<'PY'
+          import json, re
+
+          PATH = 'assets/data/msk-data.new.json'
+          PRIVATE = re.compile(r'^(email|e-mail|phone|hp|wa|whatsapp|alamat|address)\b|not-?shown|priva?te', re.I)
+          KEEP = re.compile(r'^id_\(not-shown\)$', re.I)
+
+          with open(PATH, encoding='utf-8') as f:
+              data = json.load(f)
+
+          blanked = 0
+          for name, entry in data.items():
+              values = entry.get('values') or []
+              if not values:
+                  continue
+              cols = [i for i, h in enumerate(values[0])
+                      if PRIVATE.search(str(h)) and not KEEP.match(str(h))]
+              for row in values[1:]:
+                  for i in cols:
+                      if i < len(row) and row[i] != '':
+                          row[i] = ''
+                          blanked += 1
+              print(name, 'kolom privat dikosongkan:', [values[0][i] for i in cols])
+
+          with open(PATH, 'w', encoding='utf-8') as f:
+              json.dump(data, f, ensure_ascii=False, separators=(',', ':'))
+          print('sel dikosongkan:', blanked)
+          PY
+          
       - name: Replace snapshot only if changed
         id: diff
         run: |

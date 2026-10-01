@@ -1,6 +1,5 @@
 window.MSK_API_URL = "https://script.google.com/macros/s/AKfycbx56NY8Z9U_kw4E2F_6pjsWSmATgheLC43QgH1rHO7atFoWNg_pqyi5XwQEkKdgqQSt/exec";
-window.MSK_STATIC_URL = "assets/data/msk-data.json";
-window.MSK_CACHE_KEY = "miskat-data-cache-v2";
+window.MSK_CACHE_KEY = "miskat-data-cache-v3";
 
 window.mskFetchData = function () {
   if (window._mskP)
@@ -29,27 +28,21 @@ window.mskFetchData = function () {
     return data;
   }
 
-  function load(url, options) {
-    return fetch(url, options)
-      .then(function (res) {
-        if (!res.ok)
-          throw new Error("HTTP " + res.status);
-        return res.text();
-      })
-      .then(function (text) {
-        var data = parseData(text);
-        writeStored(text);
-        return data;
-      });
-  }
-
   try {
     localStorage.removeItem("miskat-data-cache-v1");
+    localStorage.removeItem("miskat-data-cache-v2");
   } catch (e) { }
 
-  window._mskP = load(window.MSK_STATIC_URL, { cache: "no-cache" })
-    .catch(function () {
-      return load(window.MSK_API_URL);
+  window._mskP = fetch(window.MSK_API_URL)
+    .then(function (res) {
+      if (!res.ok)
+        throw new Error("HTTP " + res.status);
+      return res.text();
+    })
+    .then(function (text) {
+      var data = parseData(text);
+      writeStored(text);
+      return data;
     })
     .catch(function (err) {
       var stored = readStored();
