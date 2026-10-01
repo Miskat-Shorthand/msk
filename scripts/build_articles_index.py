@@ -17,11 +17,6 @@ AUTO_THUMB_NAMES = ["thumb.jpg", "thumb.jpeg", "thumb.png", "thumb.webp", "thumb
 
 
 def find_thumbnail(folder, name, extra, warn):
-    """Returns the site-root-relative thumbnail path for an article, or None.
-
-    Priority: an explicit "thumbnail" filename in meta.json, else the first
-    auto-detected thumb.* file sitting in the article's own folder.
-    """
     explicit = extra.get("thumbnail")
     if explicit:
         if os.path.isfile(os.path.join(folder, explicit)):

@@ -160,6 +160,7 @@
   "about.contrib.hiatus.badge": "On hiatus",
   "about.contrib.alumni.heading": "Alumni",
   "about.contrib.alumni.lead": "Past contributors we're grateful to have worked with.",
+  "about.contrib.link.web": "Website",
   "about.license.heading": "Open-Source Licenses",
   "about.license.lead": "Third-party libraries this site relies on, used client-side to read the dictionary directly in the browser.",
   "about.license.sheetjs.name": "SheetJS — Community Edition",

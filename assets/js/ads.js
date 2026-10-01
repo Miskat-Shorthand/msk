@@ -1,16 +1,11 @@
-/* AdSense slots
- * HTML only contains <div class="ad-slot" data-ad="KEY"></div>.
- * Fill in the slot ID from AdSense (Ads > By ad unit > Display ads) in SLOTS below.
- * Slots whose ID is still empty are NOT displayed (no empty boxes).
- */
 (function () {
   "use strict";
   var CLIENT = "ca-pub-2825498315021318";
   var SLOTS = {
-    "article-rail":   "",  // (article.html)
-    "article-inline": "",  // (article.html)
-    "index-inline":   "",  // (index.html)
-    "unit-inline":    ""   // (unit.html)
+    "article-rail": "",
+    "article-inline": "",
+    "index-inline": "",
+    "unit-inline": ""
   };
 
   function isVisible(node) {

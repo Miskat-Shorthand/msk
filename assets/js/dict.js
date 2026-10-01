@@ -102,13 +102,6 @@
     id: { topic: "id-Topic", info: "Info-id" },
     ms: { topic: "my-Topic", info: "Info-ms" }
   };
-  var NS = {
-    rel: "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
-    pkgRel: "http://schemas.openxmlformats.org/package/2006/relationships",
-    sml: "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
-    xdr: "http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing",
-    a: "http://schemas.openxmlformats.org/drawingml/2006/main"
-  };
   var PAGE_SIZE = 80;
   var QUIZ_COLS = ["word", "stroke", "brief", "keyboard"];
   var QUIZ_MASK_COLS = ["word", "stroke", "brief", "keyboard"];
@@ -244,145 +237,6 @@
       keyLine("ID", idVal, r[imgKey(COL_KEY_ID)], wordText),
       keyLine("MS", msVal, r[imgKey(COL_KEY_MS)], wordText)
     ]);
-  }
-  function parseXml(text) {
-    return new DOMParser().parseFromString(text, "application/xml");
-  }
-  function firstByNS(node, ns, local) {
-    var list = node.getElementsByTagNameNS(ns, local);
-    return list.length ? list[0] : null;
-  }
-  function resolveRelTarget(ownerFilePath, target) {
-    if (target.indexOf("/") === 0)
-      return target.slice(1);
-    var dir = ownerFilePath.split("/");
-    dir.pop();
-    target.split("/").forEach(function (p) {
-      if (p === "..")
-        dir.pop();
-      else if (p === "." || p === "") { }
-      else
-        dir.push(p);
-    });
-    return dir.join("/");
-  }
-  function relsPathFor(filePath) {
-    var parts = filePath.split("/");
-    var name = parts.pop();
-    parts.push("_rels");
-    parts.push(name + ".rels");
-    return parts.join("/");
-  }
-  function readXmlFile(zip, path) {
-    var f = zip.file(path);
-    if (!f)
-      return Promise.resolve(null);
-    return f.async("string").then(parseXml);
-  }
-  function relTargetById(relsDoc, id) {
-    var rels = relsDoc.getElementsByTagNameNS(NS.pkgRel, "Relationship");
-    for (var i = 0; i < rels.length; i++) {
-      if (rels[i].getAttribute("Id") === id)
-        return rels[i].getAttribute("Target");
-    }
-    return null;
-  }
-  function mapSheetNamesToPaths(zip) {
-    var workbookPath = "xl/workbook.xml";
-    return readXmlFile(zip, workbookPath).then(function (wbDoc) {
-      if (!wbDoc)
-        return {};
-      return readXmlFile(zip, relsPathFor(workbookPath)).then(function (relsDoc) {
-        var map = {};
-        if (!wbDoc || !relsDoc)
-          return map;
-        var sheetEls = wbDoc.getElementsByTagNameNS(NS.sml, "sheet");
-        for (var i = 0; i < sheetEls.length; i++) {
-          var name = sheetEls[i].getAttribute("name");
-          var rId = sheetEls[i].getAttributeNS(NS.rel, "id");
-          var target = rId ? relTargetById(relsDoc, rId) : null;
-          if (name && target)
-            map[name] = resolveRelTarget(workbookPath, target);
-        }
-        return map;
-      });
-    });
-  }
-  function extractSheetImages(zip, sheetXmlPath) {
-    return readXmlFile(zip, sheetXmlPath).then(function (sheetDoc) {
-      if (!sheetDoc)
-        return {};
-      var drawingEl = firstByNS(sheetDoc, NS.sml, "drawing");
-      if (!drawingEl)
-        return {};
-      var rId = drawingEl.getAttributeNS(NS.rel, "id");
-      if (!rId)
-        return {};
-      return readXmlFile(zip, relsPathFor(sheetXmlPath)).then(function (sheetRelsDoc) {
-        var drawingTarget = sheetRelsDoc ? relTargetById(sheetRelsDoc, rId) : null;
-        if (!drawingTarget)
-          return {};
-        var drawingPath = resolveRelTarget(sheetXmlPath, drawingTarget);
-        return readXmlFile(zip, drawingPath).then(function (drawingDoc) {
-          if (!drawingDoc)
-            return {};
-          var blips = drawingDoc.getElementsByTagNameNS(NS.a, "blip");
-          var anchors = [];
-          for (var i = 0; i < blips.length; i++) {
-            var blip = blips[i];
-            var embedId = blip.getAttributeNS(NS.rel, "embed");
-            if (!embedId)
-              continue;
-            var node = blip.parentNode;
-            var fromEl = null;
-            while (node && node.nodeType === 1) {
-              if (["twoCellAnchor", "oneCellAnchor", "absoluteAnchor"].indexOf(node.localName) !== -1) {
-                fromEl = firstByNS(node, NS.xdr, "from");
-                break;
-              }
-              node = node.parentNode;
-            }
-            if (!fromEl)
-              continue;
-            var colEl = firstByNS(fromEl, NS.xdr, "col");
-            var rowEl = firstByNS(fromEl, NS.xdr, "row");
-            if (!colEl || !rowEl)
-              continue;
-            anchors.push({
-              row: parseInt(rowEl.textContent, 10),
-              col: parseInt(colEl.textContent, 10),
-              embedId: embedId
-            });
-          }
-          if (!anchors.length)
-            return {};
-          return readXmlFile(zip, relsPathFor(drawingPath)).then(function (drawingRelsDoc) {
-            if (!drawingRelsDoc)
-              return {};
-            var mediaJobs = anchors.map(function (a) {
-              var target = relTargetById(drawingRelsDoc, a.embedId);
-              if (!target)
-                return Promise.resolve(null);
-              var mediaPath = resolveRelTarget(drawingPath, target);
-              var mf = zip.file(mediaPath);
-              if (!mf)
-                return Promise.resolve(null);
-              var ext = (mediaPath.split(".").pop() || "png").toLowerCase();
-              var mime = { png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", gif: "image/gif", svg: "image/svg+xml", webp: "image/webp" }[ext] || "application/octet-stream";
-              return mf.async("base64").then(function (b64) {
-                return { key: a.row + "_" + a.col, dataUrl: "data:" + mime + ";base64," + b64 };
-              });
-            });
-            return Promise.all(mediaJobs).then(function (results) {
-              var map = {};
-              results.forEach(function (r) { if (r)
-                map[r.key] = r.dataUrl; });
-              return map;
-            });
-          });
-        });
-      });
-    }).catch(function () { return {}; });
   }
   function rowsFromSheetJson(aoa) {
     if (!aoa || !aoa.length)
@@ -782,13 +636,6 @@
   }
   function loadData() {
     var status = document.getElementById("dictStatus");
-    if (String(window.MSK_API_URL || "").indexOf("GANTI_DENGAN") === 0) {
-      if (status) {
-        status.classList.add("error");
-        status.textContent = t("dict.status.notconfigured", "Not configured yet.");
-      }
-      return;
-    }
     if (status)
       status.textContent = t("dict.status.loading", "Loading data...");
     window.mskFetchData()

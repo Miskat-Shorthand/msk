@@ -1,62 +1,61 @@
 window.MSK_API_URL = "https://script.google.com/macros/s/AKfycbx56NY8Z9U_kw4E2F_6pjsWSmATgheLC43QgH1rHO7atFoWNg_pqyi5XwQEkKdgqQSt/exec";
-// Static snapshot synced periodically from the Sheet by a GitHub Action
-// (see .github/workflows/sync-data.yml). Every visitor hits this static
-// file first — cheap and served by GitHub Pages — instead of hitting the
-// Apps Script endpoint directly, which has a low simultaneous-execution quota.
 window.MSK_STATIC_URL = "assets/data/msk-data.json";
-window.MSK_CACHE_KEY = "miskat-data-cache-v1";
-window.MSK_CACHE_TTL_MS = 15 * 60 * 1000; // 15 minutes
+window.MSK_CACHE_KEY = "miskat-data-cache-v2";
 
 window.mskFetchData = function () {
   if (window._mskP)
     return window._mskP;
 
-  function readCache() {
+  function readStored() {
     try {
       var raw = localStorage.getItem(window.MSK_CACHE_KEY);
-      if (!raw) return null;
-      var cached = JSON.parse(raw);
-      if (!cached || typeof cached.t !== "number" || !cached.d) return null;
-      if (Date.now() - cached.t > window.MSK_CACHE_TTL_MS) return null;
-      return cached.d;
+      return raw ? JSON.parse(raw) : null;
     } catch (e) {
       return null;
     }
   }
 
-  function writeCache(data) {
+  function writeStored(text) {
     try {
-      localStorage.setItem(window.MSK_CACHE_KEY, JSON.stringify({ t: Date.now(), d: data }));
-    } catch (e) {
-      // localStorage full or disabled (private mode) — safe to ignore, we just skip caching
-    }
+      if (localStorage.getItem(window.MSK_CACHE_KEY) !== text)
+        localStorage.setItem(window.MSK_CACHE_KEY, text);
+    } catch (e) { }
   }
 
-  var cached = readCache();
-  if (cached) {
-    window._mskP = Promise.resolve(cached);
-    return window._mskP;
+  function parseData(text) {
+    var data = JSON.parse(text);
+    if (!data || typeof data !== "object" || Array.isArray(data))
+      throw new Error("Invalid data");
+    return data;
   }
 
-  window._mskP = fetch(window.MSK_STATIC_URL, { cache: "no-cache" })
-    .then(function (res) {
-      if (!res.ok) throw new Error("static HTTP " + res.status);
-      return res.json();
-    })
-    .catch(function () {
-      // Static snapshot missing or not synced yet — fall back to the live
-      // Apps Script endpoint so the site still works.
-      return fetch(window.MSK_API_URL).then(function (res) {
-        if (!res.ok) throw new Error("HTTP " + res.status);
-        return res.json();
+  function load(url, options) {
+    return fetch(url, options)
+      .then(function (res) {
+        if (!res.ok)
+          throw new Error("HTTP " + res.status);
+        return res.text();
+      })
+      .then(function (text) {
+        var data = parseData(text);
+        writeStored(text);
+        return data;
       });
-    })
-    .then(function (data) {
-      writeCache(data);
-      return data;
+  }
+
+  try {
+    localStorage.removeItem("miskat-data-cache-v1");
+  } catch (e) { }
+
+  window._mskP = load(window.MSK_STATIC_URL, { cache: "no-cache" })
+    .catch(function () {
+      return load(window.MSK_API_URL);
     })
     .catch(function (err) {
-      window._mskP = null; // allow retry on next call instead of caching a permanent failure
+      var stored = readStored();
+      if (stored)
+        return stored;
+      window._mskP = null;
       throw err;
     });
 

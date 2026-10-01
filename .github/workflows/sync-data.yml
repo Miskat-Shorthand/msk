@@ -23,19 +23,23 @@ jobs:
         run: |
           set -e
           mkdir -p assets/data
-          curl -sfL --max-time 60 \
+          curl -sfL --retry 3 --retry-delay 5 --max-time 60 \
             "https://script.google.com/macros/s/AKfycbx56NY8Z9U_kw4E2F_6pjsWSmATgheLC43QgH1rHO7atFoWNg_pqyi5XwQEkKdgqQSt/exec" \
             -o assets/data/msk-data.new.json
 
       - name: Validate JSON before replacing anything
         run: |
-          python3 -c "
+          python3 - <<'PY'
           import json, sys
-          with open('assets/data/msk-data.new.json') as f:
+          with open('assets/data/msk-data.new.json', encoding='utf-8') as f:
               data = json.load(f)
-          if not isinstance(data, dict) or not data:
-              sys.exit('Response was empty or not an object')
-          "
+          if not isinstance(data, dict):
+              sys.exit('Response was not an object')
+          for sheet in ('Indonesian & Malay', 'Contributor'):
+              entry = data.get(sheet)
+              if not isinstance(entry, dict) or not entry.get('values'):
+                  sys.exit('Missing or empty sheet: ' + sheet)
+          PY
 
       - name: Replace snapshot only if changed
         id: diff
@@ -55,4 +59,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/data/msk-data.json
           git commit -m "chore: sync data from Google Sheet"
-          git push
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

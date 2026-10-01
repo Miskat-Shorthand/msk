@@ -3,11 +3,11 @@
   var NEW_HIGHLIGHT_DAYS = 30;
   var INDEX_LIMIT = 12;
   var TESTIMONIAL_INTERVAL_MS = 6000;
-  var TESTIMONIAL_FADE_MS = 320;
   var COL_PHOTO = "photo";
   var IMAGE_KEYS = [COL_PHOTO];
   var testimonialTimer = null;
   var testimonialIndex = 0;
+  var testimonialPaused = false;
   var CANONICAL_COLUMNS = [
     { key: "id", test: /^id[_\s]*\(not-?shown\)$/i },
     { key: "fullName", test: /^full-?name$/i },
@@ -57,13 +57,6 @@
     }
     return null;
   }
-  var NS = {
-    rel: "http://schemas.openxmlformats.org/officeDocument/2006/relationships",
-    pkgRel: "http://schemas.openxmlformats.org/package/2006/relationships",
-    sml: "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
-    xdr: "http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing",
-    a: "http://schemas.openxmlformats.org/drawingml/2006/main"
-  };
   function el(tag, attrs, children) {
     var e = document.createElement(tag);
     if (attrs)
@@ -84,133 +77,6 @@
       return (val === key) ? fallback : val;
     }
     return fallback;
-  }
-  function parseXml(text) { return new DOMParser().parseFromString(text, "application/xml"); }
-  function firstByNS(node, ns, local) { var l = node.getElementsByTagNameNS(ns, local); return l.length ? l[0] : null; }
-  function resolveRelTarget(ownerFilePath, target) {
-    if (target.indexOf("/") === 0)
-      return target.slice(1);
-    var dir = ownerFilePath.split("/");
-    dir.pop();
-    target.split("/").forEach(function (p) {
-      if (p === "..")
-        dir.pop();
-      else if (p === "." || p === "") { }
-      else
-        dir.push(p);
-    });
-    return dir.join("/");
-  }
-  function relsPathFor(filePath) {
-    var parts = filePath.split("/");
-    var name = parts.pop();
-    parts.push("_rels");
-    parts.push(name + ".rels");
-    return parts.join("/");
-  }
-  function readXmlFile(zip, path) {
-    var f = zip.file(path);
-    if (!f)
-      return Promise.resolve(null);
-    return f.async("string").then(parseXml);
-  }
-  function relTargetById(relsDoc, id) {
-    var rels = relsDoc.getElementsByTagNameNS(NS.pkgRel, "Relationship");
-    for (var i = 0; i < rels.length; i++)
-      if (rels[i].getAttribute("Id") === id)
-        return rels[i].getAttribute("Target");
-    return null;
-  }
-  function mapSheetNamesToPaths(zip) {
-    var workbookPath = "xl/workbook.xml";
-    return readXmlFile(zip, workbookPath).then(function (wbDoc) {
-      if (!wbDoc)
-        return {};
-      return readXmlFile(zip, relsPathFor(workbookPath)).then(function (relsDoc) {
-        var map = {};
-        if (!wbDoc || !relsDoc)
-          return map;
-        var sheetEls = wbDoc.getElementsByTagNameNS(NS.sml, "sheet");
-        for (var i = 0; i < sheetEls.length; i++) {
-          var name = sheetEls[i].getAttribute("name");
-          var rId = sheetEls[i].getAttributeNS(NS.rel, "id");
-          var target = rId ? relTargetById(relsDoc, rId) : null;
-          if (name && target)
-            map[name] = resolveRelTarget(workbookPath, target);
-        }
-        return map;
-      });
-    });
-  }
-  function extractSheetImages(zip, sheetXmlPath) {
-    return readXmlFile(zip, sheetXmlPath).then(function (sheetDoc) {
-      if (!sheetDoc)
-        return {};
-      var drawingEl = firstByNS(sheetDoc, NS.sml, "drawing");
-      if (!drawingEl)
-        return {};
-      var rId = drawingEl.getAttributeNS(NS.rel, "id");
-      if (!rId)
-        return {};
-      return readXmlFile(zip, relsPathFor(sheetXmlPath)).then(function (sheetRelsDoc) {
-        var drawingTarget = sheetRelsDoc ? relTargetById(sheetRelsDoc, rId) : null;
-        if (!drawingTarget)
-          return {};
-        var drawingPath = resolveRelTarget(sheetXmlPath, drawingTarget);
-        return readXmlFile(zip, drawingPath).then(function (drawingDoc) {
-          if (!drawingDoc)
-            return {};
-          var blips = drawingDoc.getElementsByTagNameNS(NS.a, "blip");
-          var anchors = [];
-          for (var i = 0; i < blips.length; i++) {
-            var blip = blips[i];
-            var embedId = blip.getAttributeNS(NS.rel, "embed");
-            if (!embedId)
-              continue;
-            var node = blip.parentNode;
-            var fromEl = null;
-            while (node && node.nodeType === 1) {
-              if (["twoCellAnchor", "oneCellAnchor", "absoluteAnchor"].indexOf(node.localName) !== -1) {
-                fromEl = firstByNS(node, NS.xdr, "from");
-                break;
-              }
-              node = node.parentNode;
-            }
-            if (!fromEl)
-              continue;
-            var colEl = firstByNS(fromEl, NS.xdr, "col");
-            var rowEl = firstByNS(fromEl, NS.xdr, "row");
-            if (!colEl || !rowEl)
-              continue;
-            anchors.push({ row: parseInt(rowEl.textContent, 10), col: parseInt(colEl.textContent, 10), embedId: embedId });
-          }
-          if (!anchors.length)
-            return {};
-          return readXmlFile(zip, relsPathFor(drawingPath)).then(function (drawingRelsDoc) {
-            if (!drawingRelsDoc)
-              return {};
-            var mediaJobs = anchors.map(function (a) {
-              var target = relTargetById(drawingRelsDoc, a.embedId);
-              if (!target)
-                return Promise.resolve(null);
-              var mediaPath = resolveRelTarget(drawingPath, target);
-              var mf = zip.file(mediaPath);
-              if (!mf)
-                return Promise.resolve(null);
-              var ext = (mediaPath.split(".").pop() || "png").toLowerCase();
-              var mime = { png: "image/png", jpg: "image/jpeg", jpeg: "image/jpeg", gif: "image/gif", svg: "image/svg+xml", webp: "image/webp" }[ext] || "application/octet-stream";
-              return mf.async("base64").then(function (b64) { return { key: a.row + "_" + a.col, dataUrl: "data:" + mime + ";base64," + b64 }; });
-            });
-            return Promise.all(mediaJobs).then(function (results) {
-              var map = {};
-              results.forEach(function (r) { if (r)
-                map[r.key] = r.dataUrl; });
-              return map;
-            });
-          });
-        });
-      });
-    }).catch(function () { return {}; });
   }
   function rowsFromSheetJson(aoa) {
     if (!aoa || !aoa.length)
@@ -412,7 +278,7 @@
   }
   function moreRow(count) {
     return el("div", { class: "contributor-row contributor-row--more" }, [
-      el("span", { text: "+" + count + " " + t("index.contrib.more", "lainnya") })
+      el("span", { text: "+" + count + " " + t("index.contrib.more", "more") })
     ]);
   }
   function svgEduIcon() {
@@ -599,19 +465,37 @@
       testimonialTimer = null;
     }
   }
-  function startTestimonialRotation(wrap, list) {
+  function showTestimonial(wrap, index) {
+    var cards = wrap.children;
+    for (var i = 0; i < cards.length; i++)
+      cards[i].classList.toggle("testimonial-card--active", i === index);
+    testimonialIndex = index;
+  }
+  function startTestimonialRotation(wrap, count) {
     stopTestimonialRotation();
-    if (list.length < 2)
+    if (count < 2)
+      return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)
       return;
     testimonialTimer = setInterval(function () {
-      wrap.classList.add("testimonial-carousel--fading");
-      setTimeout(function () {
-        testimonialIndex = (testimonialIndex + 1) % list.length;
-        wrap.innerHTML = "";
-        wrap.appendChild(testimonialCard(list[testimonialIndex]));
-        wrap.classList.remove("testimonial-carousel--fading");
-      }, TESTIMONIAL_FADE_MS);
+      if (testimonialPaused || document.hidden)
+        return;
+      showTestimonial(wrap, (testimonialIndex + 1) % count);
     }, TESTIMONIAL_INTERVAL_MS);
+  }
+  function bindTestimonialPause(wrap) {
+    if (wrap.getAttribute("data-pause-bound"))
+      return;
+    wrap.setAttribute("data-pause-bound", "1");
+    function pause() { testimonialPaused = true; }
+    function resume() { testimonialPaused = false; }
+    wrap.addEventListener("mouseenter", pause);
+    wrap.addEventListener("mouseleave", resume);
+    wrap.addEventListener("focusin", pause);
+    wrap.addEventListener("focusout", resume);
+    wrap.addEventListener("touchstart", pause, { passive: true });
+    wrap.addEventListener("touchend", resume, { passive: true });
+    wrap.addEventListener("touchcancel", resume, { passive: true });
   }
   function renderTestimonials(rows) {
     var section = document.getElementById("testimonialSection");
@@ -620,17 +504,21 @@
       return;
     var list = buildTestimonialList(rows);
     window.MSKTestimonials = list;
+    stopTestimonialRotation();
     if (!list.length) {
       section.hidden = true;
-      stopTestimonialRotation();
+      wrap.innerHTML = "";
+      testimonialIndex = 0;
       return;
     }
     section.hidden = false;
     if (testimonialIndex >= list.length)
       testimonialIndex = 0;
     wrap.innerHTML = "";
-    wrap.appendChild(testimonialCard(list[testimonialIndex]));
-    startTestimonialRotation(wrap, list);
+    list.forEach(function (row) { wrap.appendChild(testimonialCard(row)); });
+    showTestimonial(wrap, testimonialIndex);
+    bindTestimonialPause(wrap);
+    startTestimonialRotation(wrap, list.length);
   }
   function render(rows) {
     var section = document.getElementById("contributorsSection");

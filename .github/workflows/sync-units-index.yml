@@ -15,28 +15,32 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
+    env:
+      UNIT_API_URL: ${{ secrets.UNIT_API_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Fetch structure from the restricted Apps Script
+        if: env.UNIT_API_URL != ''
         run: |
           set -e
-          UNIT_API_URL="PASTE_YOUR_SEPARATE_RESTRICTED_EXEC_URL_HERE"
-          curl -sfL --max-time 60 "${UNIT_API_URL}?mode=index" -o assets/units-index.new.json
+          curl -sfL --retry 3 --retry-delay 5 --max-time 60 "${UNIT_API_URL}?mode=index" -o assets/units-index.new.json
 
       - name: Validate JSON before replacing anything
+        if: env.UNIT_API_URL != ''
         run: |
-          python3 -c "
+          python3 - <<'PY'
           import json, sys
-          with open('assets/units-index.new.json') as f:
+          with open('assets/units-index.new.json', encoding='utf-8') as f:
               data = json.load(f)
           if not isinstance(data, list):
               sys.exit('Response was not a list')
-          "
+          PY
 
       - name: Replace index only if changed
         id: diff
+        if: env.UNIT_API_URL != ''
         run: |
           if [ -f assets/units-index.json ] && cmp -s assets/units-index.new.json assets/units-index.json; then
             rm assets/units-index.new.json
@@ -53,4 +57,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add assets/units-index.json
           git commit -m "chore: sync units structure from Drive"
-          git push
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
